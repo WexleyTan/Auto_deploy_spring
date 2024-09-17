@@ -7,7 +7,7 @@ pipeline {
 
         stage("build") {
             steps {
-              echo "There is no build step"
+              sh ' gradle build '
             }
         }
 
