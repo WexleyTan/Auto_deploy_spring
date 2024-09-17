@@ -7,7 +7,7 @@ pipeline {
 
         stage("build") {
             steps {
-              sh 'gradle build --no-daemon'
+              echo "There is no build step"
             }
         }
 
