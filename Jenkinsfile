@@ -7,13 +7,7 @@ pipeline {
 
         stage("build") {
             steps {
-              script {
-                  sh './gradlew cleanFrontendTest --no-daemon'
-                  sh './gradlew frontendUnitTest --no-daemon'
-                  sh './gradlew tslint --no-daemon'
-                  sh './gradlew e2e --no-daemon'
-                  sh './gradlew publish --no-daemon'
-              }
+              sh 'gradle clean build'
             }
         }
 
