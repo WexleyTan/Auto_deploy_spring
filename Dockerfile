@@ -1,14 +1,14 @@
-# Stage 2: Run the application
-FROM eclipse-temurin:17-jre-alpine
+FROM gradle:4.7.0-jdk8-alpine AS build
+COPY --chown=gradle:gradle . /home/gradle/src
+WORKDIR /home/gradle/src
+RUN gradle build --no-daemon 
 
-# Set the working directory inside the container
-WORKDIR /app
+FROM openjdk:8-jre-slim
 
-# Copy the JAR file from the build stage
-COPY target/*.jar app.jar
-
-# Expose the port that the application will run on
 EXPOSE 7070
 
-# Run the application
-ENTRYPOINT ["java", "-jar", "app.jar"]
+RUN mkdir /app
+
+COPY --from=build /home/gradle/src/build/libs/*.jar /app/spring-boot-application.jar
+
+ENTRYPOINT ["java", "-XX:+UnlockExperimentalVMOptions", "-XX:+UseCGroupMemoryLimitForHeap", "-Djava.security.egd=file:/dev/./urandom","-jar","/app/spring-boot-application.jar"]
