@@ -7,6 +7,7 @@ pipeline {
 
         stage("build") {
             steps {
+              sh 'whoami'
               sh 'chmod +x gradlew'
               sh ' ./gradlew build '
             }
