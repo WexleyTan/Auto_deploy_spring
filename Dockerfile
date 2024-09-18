@@ -5,7 +5,7 @@ FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
 
 # Copy the JAR file from the build stage
-COPY target/*.jar app.jar
+COPY build/libs/*.jar app.jar
 
 # Expose the port that the application will run on
 EXPOSE 7070
